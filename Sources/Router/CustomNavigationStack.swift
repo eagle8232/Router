@@ -8,20 +8,20 @@
 import SwiftUI
 
 @available(iOS 13.0, *)
-struct CustomNavigationStack<C: View>: UIViewControllerRepresentable {
+public struct CustomNavigationStack<C: View>: UIViewControllerRepresentable {
     
     @ObservedObject var router: Router = Router()
     @ViewBuilder var rootView: () -> C
     
-    init(@ViewBuilder root: @escaping () -> C) {
+    public init(@ViewBuilder root: @escaping () -> C) {
         self.rootView = root
     }
     
-    func makeUIViewController(context: Context) -> UINavigationController {
+    public func makeUIViewController(context: Context) -> UINavigationController {
         return self.router.setupNavigationController(with: rootView())
     }
     
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
+    public func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
         // Do not update
     }
     
