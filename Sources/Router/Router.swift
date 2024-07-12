@@ -9,7 +9,7 @@ import SwiftUI
 */
 
 @available(iOS 13.0, *)
-final class Router: NSObject, ObservableObject, UINavigationControllerDelegate {
+public final class Router: NSObject, ObservableObject, UINavigationControllerDelegate {
     
     var navigationController: UINavigationController = UINavigationController()
     
@@ -64,7 +64,7 @@ final class Router: NSObject, ObservableObject, UINavigationControllerDelegate {
     
     // MARK: - UINavigationControllerDelegate
     
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         
         /// - Customize navigation item and navigation bar of the view controller, which will be shown
         viewController.navigationItem.hidesBackButton = true
