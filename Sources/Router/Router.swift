@@ -11,7 +11,7 @@ import SwiftUI
 @available(iOS 13.0, *)
 public final class Router: NSObject, ObservableObject, UINavigationControllerDelegate {
     
-    var navigationController: UINavigationController = UINavigationController()
+    public var navigationController: UINavigationController = UINavigationController()
     
     override init() {
         super.init()
