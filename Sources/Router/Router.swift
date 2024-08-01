@@ -28,7 +28,7 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
     
     public func setupNavigationController<C: View>(with view: C) -> UINavigationController {
         let rootViewController = UIHostingController(rootView: view.environmentObject(self))
-        navigationController.viewControllers.append(rootViewController)
+        navigationController = UINavigationController(rootViewController: rootViewController)
         return navigationController
     }
     
