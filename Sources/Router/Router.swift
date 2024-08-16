@@ -69,6 +69,7 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
         /// - Customize navigation item and navigation bar of the view controller, which will be shown
         viewController.navigationItem.hidesBackButton = true
         viewController.navigationController?.navigationBar.isTranslucent = true
+        viewController.hidesBottomBarWhenPushed = true
     }
 }
 
