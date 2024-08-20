@@ -13,22 +13,22 @@ public struct CustomNavigationStack<C: View>: UIViewControllerRepresentable {
     @ObservedObject var router: Router = Router()
     @ViewBuilder var rootView: () -> C
     var title: String?
-    var largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode
+    var prefersLargeTitles: Bool
     
     public init(title: String? = nil,
-                largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode = .always,
+                prefersLargeTitles: Bool = true,
                 @ViewBuilder root: @escaping () -> C) {
         
         self.title = title
-        self.largeTitleDisplayMode = largeTitleDisplayMode
+        self.prefersLargeTitles = prefersLargeTitles
         self.rootView = root
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {
         return self.router.setupNavigationController(
             with: rootView(),
-            title: title, largeTitleDisplayMode:
-                largeTitleDisplayMode)
+            title: title,
+            prefersLargeTitles: prefersLargeTitles)
     }
     
     public func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {

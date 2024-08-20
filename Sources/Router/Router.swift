@@ -6,7 +6,7 @@ import SwiftUI
 /*
  - Class 'Router' creates a navigation stack from the view you pass to setupNavigationController, which can push view controllers and pop to the root view.
  - This is a basic class, which can be used for all views and manipulate them
-*/
+ */
 
 @available(iOS 13.0, *)
 public final class Router: NSObject, ObservableObject, UINavigationControllerDelegate {
@@ -29,20 +29,24 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
     public func setupNavigationController<C: View>(
         with view: C,
         title: String?,
-        largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode = .always) -> UINavigationController {
+        prefersLargeTitles: Bool) -> UINavigationController {
             
-        let rootViewController = UIHostingController(rootView: view.environmentObject(self))
-        rootViewController.title = title
-        rootViewController.navigationItem.largeTitleDisplayMode = largeTitleDisplayMode
-        navigationController = UINavigationController(rootViewController: rootViewController)
-        return navigationController
-    }
+            let rootViewController = UIHostingController(rootView: view.environmentObject(self))
+            rootViewController.title = title
+            rootViewController.navigationItem.largeTitleDisplayMode = .always
+            
+            
+            navigationController = UINavigationController(rootViewController: rootViewController)
+            navigationController.navigationBar.prefersLargeTitles = prefersLargeTitles
+            
+            return navigationController
+        }
     
     // MARK: - Custom Setup
     
     private func setupNavigation() {
         navigationController.delegate = self
-    
+        
         /// - Customization navigation bar appearance
         let navigationBar = navigationController.navigationBar
         navigationBar.isTranslucent = true
@@ -58,13 +62,15 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
     public func navigate<C: View>(
         title: String? = nil,
         @ViewBuilder view: () -> C,
-        largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode = .always) {
+        prefersLargeTitles: Bool = true) {
             
-        let newHostingController = UIHostingController(rootView: view().environmentObject(self))
-        newHostingController.title = title
-        newHostingController.navigationItem.largeTitleDisplayMode = largeTitleDisplayMode
-        navigationController.pushViewController(newHostingController, animated: true)
-    }
+            let newHostingController = UIHostingController(rootView: view().environmentObject(self))
+            newHostingController.title = title
+            newHostingController.navigationItem.largeTitleDisplayMode = .always
+            
+            navigationController.pushViewController(newHostingController, animated: true)
+            navigationController.navigationBar.prefersLargeTitles = prefersLargeTitles
+        }
     
     public func popToRoot() {
         navigationController.popToRootViewController(animated: true)
