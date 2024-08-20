@@ -26,10 +26,15 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
     /// to manipulate view controllers of a navigation stack further.
     /// * Use `self` to pass as an environment object to another view
     
-    public func setupNavigationController<C: View>(with view: C, title: String?) -> UINavigationController {
+    public func setupNavigationController<C: View>(
+        with view: C,
+        title: String?,
+        largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode = .always) -> UINavigationController {
+            
         let rootViewController = UIHostingController(rootView: view.environmentObject(self))
+        rootViewController.title = title
+        rootViewController.navigationItem.largeTitleDisplayMode = largeTitleDisplayMode
         navigationController = UINavigationController(rootViewController: rootViewController)
-        navigationController.title = title
         return navigationController
     }
     
@@ -50,9 +55,14 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
     ///  - popToRoot: Pops to the root view controller, which is in the existing navigation stack
     ///  - dismissView: Dismisses the view controller, which is visible right now
     
-    public func navigate<C: View>(title: String? = nil, @ViewBuilder view: () -> C) {
+    public func navigate<C: View>(
+        title: String? = nil,
+        @ViewBuilder view: () -> C,
+        largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode = .always) {
+            
         let newHostingController = UIHostingController(rootView: view().environmentObject(self))
         newHostingController.title = title
+        newHostingController.navigationItem.largeTitleDisplayMode = largeTitleDisplayMode
         navigationController.pushViewController(newHostingController, animated: true)
     }
     
