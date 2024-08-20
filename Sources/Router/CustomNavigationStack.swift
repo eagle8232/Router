@@ -11,6 +11,7 @@ import SwiftUI
 public struct CustomNavigationStack<C: View>: UIViewControllerRepresentable {
     
     @ObservedObject var router: Router = Router()
+    var title: String? = nil
     @ViewBuilder var rootView: () -> C
     
     public init(@ViewBuilder root: @escaping () -> C) {
@@ -18,7 +19,7 @@ public struct CustomNavigationStack<C: View>: UIViewControllerRepresentable {
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {
-        return self.router.setupNavigationController(with: rootView())
+        return self.router.setupNavigationController(with: rootView(), title: title)
     }
     
     public func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {

@@ -50,7 +50,7 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
     ///  - popToRoot: Pops to the root view controller, which is in the existing navigation stack
     ///  - dismissView: Dismisses the view controller, which is visible right now
     
-    public func navigate<C: View>(@ViewBuilder view: () -> C, title: String?) {
+    public func navigate<C: View>(title: String? = nil, @ViewBuilder view: () -> C) {
         let newHostingController = UIHostingController(rootView: view().environmentObject(self))
         newHostingController.title = title
         navigationController.pushViewController(newHostingController, animated: true)
