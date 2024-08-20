@@ -34,10 +34,9 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
             let rootViewController = UIHostingController(rootView: view.environmentObject(self))
             rootViewController.title = title
             rootViewController.navigationItem.largeTitleDisplayMode = .always
-            
+            rootViewController.navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
             
             navigationController = UINavigationController(rootViewController: rootViewController)
-            navigationController.navigationBar.prefersLargeTitles = prefersLargeTitles
             
             return navigationController
         }
@@ -67,9 +66,9 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
             let newHostingController = UIHostingController(rootView: view().environmentObject(self))
             newHostingController.title = title
             newHostingController.navigationItem.largeTitleDisplayMode = .always
+            newHostingController.navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
             
             navigationController.pushViewController(newHostingController, animated: true)
-            navigationController.navigationBar.prefersLargeTitles = prefersLargeTitles
         }
     
     public func popToRoot() {
