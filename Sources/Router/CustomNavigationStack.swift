@@ -11,10 +11,11 @@ import SwiftUI
 public struct CustomNavigationStack<C: View>: UIViewControllerRepresentable {
     
     @ObservedObject var router: Router = Router()
-    var title: String? = nil
     @ViewBuilder var rootView: () -> C
+    var title: String?
     
-    public init(@ViewBuilder root: @escaping () -> C) {
+    public init(title: String? = nil, @ViewBuilder root: @escaping () -> C) {
+        self.title = title
         self.rootView = root
     }
     
