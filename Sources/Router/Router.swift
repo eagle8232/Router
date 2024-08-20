@@ -61,8 +61,8 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
     
     public func navigate<C: View>(
         title: String? = nil,
-        @ViewBuilder view: () -> C,
-        prefersLargeTitles: Bool = true) {
+        prefersLargeTitles: Bool = true,
+        @ViewBuilder view: () -> C) {
             
             let newHostingController = UIHostingController(rootView: view().environmentObject(self))
             newHostingController.title = title
