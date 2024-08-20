@@ -26,9 +26,10 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
     /// to manipulate view controllers of a navigation stack further.
     /// * Use `self` to pass as an environment object to another view
     
-    public func setupNavigationController<C: View>(with view: C) -> UINavigationController {
+    public func setupNavigationController<C: View>(with view: C, title: String?) -> UINavigationController {
         let rootViewController = UIHostingController(rootView: view.environmentObject(self))
         navigationController = UINavigationController(rootViewController: rootViewController)
+        navigationController.title = title
         return navigationController
     }
     
@@ -49,8 +50,9 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
     ///  - popToRoot: Pops to the root view controller, which is in the existing navigation stack
     ///  - dismissView: Dismisses the view controller, which is visible right now
     
-    public func navigate<C: View>(@ViewBuilder view: () -> C) {
+    public func navigate<C: View>(@ViewBuilder view: () -> C, title: String?) {
         let newHostingController = UIHostingController(rootView: view().environmentObject(self))
+        newHostingController.title = title
         navigationController.pushViewController(newHostingController, animated: true)
     }
     
