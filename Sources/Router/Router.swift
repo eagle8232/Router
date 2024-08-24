@@ -32,7 +32,7 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
         prefersLargeTitles: Bool) -> UINavigationController {
             
             let rootViewController = UIHostingController(rootView: view.environmentObject(self))
-            rootViewController.title = title
+            rootViewController.title = NSLocalizedString(title ?? "", comment: "")
             rootViewController.navigationItem.largeTitleDisplayMode = .always
             rootViewController.navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
             
@@ -64,7 +64,7 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
         @ViewBuilder view: () -> C) {
             
             let newHostingController = UIHostingController(rootView: view().environmentObject(self))
-            newHostingController.title = title
+            newHostingController.title = NSLocalizedString(title ?? "", comment: "")
             newHostingController.navigationItem.largeTitleDisplayMode = .always
             newHostingController.navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
             
