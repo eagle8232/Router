@@ -36,6 +36,10 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
             rootViewController.navigationItem.largeTitleDisplayMode = .always
             rootViewController.navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
             
+            NotificationCenter.default.addObserver(forName: .init("languageChanged"), object: nil, queue: .main) { [weak rootViewController] _ in
+                rootViewController?.title = NSLocalizedString(title ?? "", comment: "")
+            }
+            
             navigationController = UINavigationController(rootViewController: rootViewController)
             
             return navigationController
@@ -67,6 +71,10 @@ public final class Router: NSObject, ObservableObject, UINavigationControllerDel
             newHostingController.title = NSLocalizedString(title ?? "", comment: "")
             newHostingController.navigationItem.largeTitleDisplayMode = .always
             newHostingController.navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
+            
+            NotificationCenter.default.addObserver(forName: .init("languageChanged"), object: nil, queue: .main) { [weak newHostingController] _ in
+                newHostingController?.title = NSLocalizedString(title ?? "", comment: "")
+            }
             
             navigationController.pushViewController(newHostingController, animated: true)
         }
